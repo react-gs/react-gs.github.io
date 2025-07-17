@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Re-Activate Frozen Primitive for 3D Gaussian Splatting">
+  <meta name="keywords" content="Re-Activate Frozen Primitive for 3D Gaussian Splatting">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ReAct-GS</title>
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="static/css/bootstrap-4.4.1.css">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+  
+  <!-- Bulma and Font Awesome -->
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+  <link rel="icon" href="resources/image/react.png" type="image/png">
+
+  <!-- jQuery and JS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+  <script src="static/js/app.js"></script>
+  <script src="static/js/video_comparison.js"></script>
+
+  <link rel="stylesheet" href="static/css/dics.original.css">
+  <script src="static/js/event_handler.js"></script>
+  <script src="static/js/dics.original.js"></script>
+  <script>
+  </script>
+
+</head>
+
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title" style="margin-bottom: 0; display: flex; align-items: center; justify-content: center;">
+            <img src="resources/image/react.png" alt="ReAct-GS Logo" style="height: 1.5em; vertical-align: middle; margin-left: 0.5em;">
+            <strong>ReAct-GS</strong>
+          </h1>
+          <h1 class="title is-1 publication-title" style="margin-bottom: 0"><strong>Re-Activate Frozen Primitive for 3D Gaussian Splatting</strong></h1>
+          <h2 class="title is-2 publication-title" style="margin-top: 0; margin-bottom: 2"></h2>   
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="">Yuxin Cheng</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="author-block">
+              <a href="">Binxiao Huang</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="author-block">
+              <a href="">Wenyong Zhou</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="author-block">
+              <a href="">Taiqiang Wu</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="author-block">
+              <a href="">Zhengwu Liu</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="author-block">
+              <a href="">Graziano Chesi</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="author-block">
+              <a href="">Ngai Wong</a><sup>*</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">The University of Hong Kong, Pokfulam, Hong Kong SAR</span>&nbsp;&nbsp;&nbsp;&nbsp;
+          </div>
+            
+          <div class="is-size-6 publication-authors">
+            <span class="author-block"><sup>*</sup>corresponding author</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://dl.acm.org/doi/abs/10.1145/3746027.3754958"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2510.19653"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+          
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/react-gs/ReAct-GS"
+                   class="external-link button is-normal is-rounded is-dark disabled">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+            </div>         
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-full-width">
+          <video class="video" width="720" height="405" id="xyalias6" loop playsinline autoplay muted src="resources/video/flowers/video.mp4" onplay="resizeAndPlay(this)" style="max-width:100%; height:auto;"></video>
+          <canvas class="videoMerge" id="xyalias6Merge" width="720" height="405" style="max-width:100%; height:auto;"></canvas>
+          <h2 class="subtitle has-text-left" style="margin-top: 15px">
+            <b>
+            Vanila-3DGS (left)</b> versus <b>ReAct-GS (right)</b>. By considering the rendering importance in gaussian densification and re-activating the frozen primitives periodically, ReAct-GS successfully eliminates the over-reconstruction artifacts and exhibits superior performance in details reconstruction.
+            <br>
+          </h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="hero teaser">
+  <div class="container is-max-widescreen">
+    <div class="hero-body">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-full-width">
+            <img src="./resources/image/titlefigure.png" class="center">
+            <div class="has-text-left" style="margin-bottom: 20px;">
+              <span class="is-size-6">We propose ReAct-GS to address the over-reconstruction issue in 3D-GS by identifying and resolving two fundamental limitations: gradient magnitude dilution and primitive frozen phenomenon. We introduce a novel importance-aware densification criterion and an adaptive re-activation mechanism that effectively eliminate over-reconstruction artifacts in complex scenes, yielding improved rendering quality while preserving fine details of high-frequency regions.</span>
+            </div>
+            <img src="./resources/image/largescalesplit.png" class="center" style="margin-top: 20px; width: 80%;">
+            <div class="has-text-left">
+              <span class="is-size-6">We show the visualization of 3DGS renderings, depth maps and point cloud distributions in an unbounded 3D scene (flowers from Mip-NeRF 360). The method with large-scale splitting strategy <b>(upper)</b> exhibits overfitting, leading to ill-position Gaussian growth in complex regions which results in artifacts in geometric reconstruction and novel-view synthesis. Our proposed ReAct-GS <b>(lower)</b> does not suffer from such defects and fits the actual point clouds distribution and geometric consistency.</span>
+            </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column ">
+        <h2 class="title is-3" style="margin-top: -30px">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            3D Gaussian Splatting (3D-GS) achieves real-time photorealistic novel view synthesis, yet struggles with complex scenes due to over-reconstruction issue, manifesting as local blurring and needle-shaped artifacts. While recent studies attribute this to insufficient splitting strategy on large-scale 3D Gaussian primitives, we identify two fundamental limitations underlying this issue: gradient magnitude dilution during densification and the primitive frozen phenomenon, where necessary Gaussian densification is inhibited in complex regions and suboptimally scaled Gaussians become freezing in local optima. To address these challenges, we propose ReAct-GS, a method grounded in the principle of re-activation. Our approach introduces: (1) an importance-aware densification criterion that incorporates alpha blending weights from multiple viewpoints to reactivate stalled primitive growth in complex regions, and (2) a re-activation mechanism that revives frozen primitives through adaptive parameter perturbations. Extensive experiments across multiple real-world datasets demonstrate that ReAct-GS successfully eliminates over-reconstruction artifacts and achieves state-of-the-art performance on standard novel view synthesis metrics while preserving fine geometric details. Furthermore, our proposed re-activation mechanism shows consistent improvements when integrated with other 3D-GS variants such as Pixel-GS, validating its broad applicability.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MathJax for equations -->
+<script type="text/javascript" async
+src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <!-- Method. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3" style="margin-top: -20px">Method</h2>
+
+        <img src="./resources/image/pipeline.png" class="center">
+        <div class="content has-text-justified">
+          <p style="margin-top: 30px">
+            <b>Key contributions of ReAct-GS. </b> <b>(Left)</b> We identify the gradient magnitude dilution issue in the original average gradient densification criterion of 3D-GS. Instead, we propose importance-aware densification, which considers alpha blending weights in accumulated gradient magnitude, thus accurately identifying primitives that require densification to fit complex scenes. <b>(Right)</b> We also discover the primitive frozen phenomenon which causes persistent blurring and needle-shape artifacts. Accordingly, we propose a re-activation mechanism consisting of density-guided cloning and needle-shape perturbation, which comprehensively addresses over-reconstruction artifacts by strategically perturbing specific parameters of 3D Gaussians.
+          </p>
+        </div>
+
+      </div>
+    </div>
+    <!--/ Animation. -->
+
+  </div>
+</section>
+
+</body>
+</html>
+
+
+
+<!-- End of MathJax section -->
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <!-- Results. -->
+    <div class="columns is-centered ">
+      <div class="column is-full-width">
+        <h2 class="title is-3 has-text-centered" style="margin-top: -30px">Results</h2>
+
+        <h3 class="title is-4">Novel View Synthesis</h3>
+        <div class="content has-text-justified">
+          <p>
+            We present the novel view synthesis results of 3D-GS, Blur-split, Abs-GS, Pixel-GS, ReAct-GS(ours) and GT.
+          </p>
+        </div>
+        <div class="container">
+          <ul class="nav nav-tabs nav-fill nav-justified" id="object-scale-recon">
+              <li class="nav-item">
+                <a class="nav-link active" onclick="objectSceneEvent(0,0,'object-scale-recon')">bicycle</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" onclick="objectSceneEvent(1,0,'object-scale-recon')">bonsai</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" onclick="objectSceneEvent(2,0,'object-scale-recon')">counter</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " onclick="objectSceneEvent(3,0,'object-scale-recon')">flowers</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" onclick="objectSceneEvent(4,0,'object-scale-recon')">garden</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" onclick="objectSceneEvent(5,0,'object-scale-recon')">kitchen</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" onclick="objectSceneEvent(6,0,'object-scale-recon')">room</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" onclick="objectSceneEvent(7,0,'object-scale-recon')">stump</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" onclick="objectSceneEvent(8,0,'object-scale-recon')">treehill</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" onclick="objectSceneEvent(9,0,'object-scale-recon')">train</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" onclick="objectSceneEvent(10,0,'object-scale-recon')">truck</a>
+              </li>
+          </ul>
+          <div class="b-dics" style="width: 1600px; font-weight: 400;">
+            <img src="resources/image/bicycle/3dgs.png" alt="3D-GS">
+            <img src="resources/image/bicycle/blursplit.png" alt="Blur-split">
+            <img src="resources/image/bicycle/absgs.png" alt="Abs-GS">
+            <img src="resources/image/bicycle/pixelgs.png" alt="Pixel-GS">
+            <img src="resources/image/bicycle/reactgs.png" alt="ReAct-GS (ours)">
+            <img src="resources/image/bicycle/gt.png" alt="GT">
+          </div>
+        </div>
+        <h3 class="title is-4" style="margin-top: 60px;">Depth maps</h3>
+        <div class="content has-text-justified">
+          <p>
+            We present the depth maps derived from alpha blending variants.
+          </p>
+        </div>
+        <div class="container">
+          <ul class="nav nav-tabs nav-fill nav-justified" id="object-scale-depth">
+            <li class="nav-item">
+              <a class="nav-link active" onclick="objectDepthSceneEvent(0,1,'object-scale-depth')">bicycle</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" onclick="objectDepthSceneEvent(1,1,'object-scale-depth')">bonsai</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" onclick="objectDepthSceneEvent(2,1,'object-scale-depth')">counter</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link " onclick="objectDepthSceneEvent(3,1,'object-scale-depth')">flowers</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" onclick="objectDepthSceneEvent(4,1,'object-scale-depth')">garden</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" onclick="objectDepthSceneEvent(5,1,'object-scale-depth')">kitchen</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" onclick="objectDepthSceneEvent(6,1,'object-scale-depth')">room</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" onclick="objectDepthSceneEvent(7,1,'object-scale-depth')">stump</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" onclick="objectDepthSceneEvent(8,1,'object-scale-depth')">treehill</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" onclick="objectDepthSceneEvent(9,1,'object-scale-depth')">train</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" onclick="objectDepthSceneEvent(10,1,'object-scale-depth')">truck</a>
+            </li>
+          </ul>
+          <div class="b-dics" style="width: 1600px; font-weight: 400;">
+            <img src="resources/image/bicycle_depth/3dgs.png" alt="3D-GS">
+            <img src="resources/image/bicycle_depth/blursplit.png" alt="Blur-split">
+            <img src="resources/image/bicycle_depth/absgs.png" alt="Abs-GS">
+            <img src="resources/image/bicycle_depth/pixelgs.png" alt="Pixel-GS">
+            <img src="resources/image/bicycle_depth/reactgs.png" alt="React-GS (ours)">
+            <img src="resources/image/bicycle_depth/gt.png" alt="GT">
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered ">
+      <div class="column is-full-width" style="display: flex; justify-content: center; align-items: flex-start;">
+        <div style="max-width: 1200px; flex: 1;">
+          <h2 class="title">BibTeX</h2>
+          <pre><code>@inproceedings{10.1145/3746027.3754958,
+        author = {Yuxin Cheng, Binxiao Huang, Taiqiang Wu, Wenyong Zhou, Zhengwu Liu, Graziano Chesi, Ngai Wong},
+        title = {Re-Activate Frozen Primitive for 3D Gaussian Splatting},
+        year = {2025},
+        isbn = {9798400720352},
+        publisher = {Association for Computing Machinery},
+        address = {New York, NY, USA},
+        url = {https://doi.org/10.1145/3746027.3754958},
+        doi = {10.1145/3746027.3754958},
+        booktitle = {Proceedings of the 33nd ACM International Conference on Multimedia},
+        location = {Dublin, Ireland},
+        series = {MM '25'}
+      }</code></pre>
+        </div>
+        <div style="width: 80px;"></div>
+        <div class="widgetContainer" style="display: flex; justify-content: center; align-items: center; width: 200px; max-width: 100%;">
+          <script type="text/javascript" id="clstr_globe" src="//clustrmaps.com/globe.js?d=ZutLuRFY0GNsKxXNWt5MGXwegf4hQ0quSfTxyqv2UQw"></script>
+        </div>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+            Website template credit to <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>. 
+            The video comparison with sliding bar is from <a href="https://dorverbin.github.io/refnerf/">Ref-NeRF</a>. 
+            The image comparison with sliding bar is from <a href="https://research.nvidia.com/labs/dir/neuralangelo/">Neuralangelo</a>. 
+          </p>
+        </div>
+      </div>
+          <p></p>
+        </div>
+      </div>
+</footer>
+
+</body>
+</html>
